@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+    {% block head %}
+    <script src="/static/js/jquery/responsiveslides.min.js"></script>
+    <script>
+        $(function () {
+
+            $("#slider").responsiveSlides({
+                auto: true,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks",
+                pager: true,
+            });
+
+            $("#search").change(function(){
+
+                $.get('/csdn_spider/', { name:$("#search").val(),},function (data) {
+                    $(".popular-post-grids").html($('.popular-post-grid').eq(0).clone());
+                    for(var name in data){
+                        $blog = $(".popular-post-grid").eq(0).clone();
+                        $blog.children("div").children("a").html(name);
+                        $blog.children("div").children("a").attr("href",data[name]);
+                        $blog.attr("style","display:block");
+                        $(".popular-post-grids").append($blog);
+                    }
+                $(".popular-post-grids").show()
+
+                })
+
+            });
+
+
+
+        });
+
+    </script>
+
+    {% endblock head %}
+
+  {% block con %}
+
+  {{ block.spuer }}
+
+{#<div class="img-responsive">#}
+    <div class="row">
+        <div class="col-xs-0 col-sm-1">
+        </div>
+        <div class="col-xs-12 col-sm-7" >
+            <br>
+            <div class="slider">
+            <div class="callbacks_wrap">
+            <ul class="rslides" id="slider">
+            <li>
+                <img src="/static/img/slide/python.jpg" alt="">
+                <div class="caption">
+                    <a href="single.html">Django特性中：分析Django框架中间件的详细用法</a>
+                </div>
+            </li>
+            <li>
+                <img src="/static/img/slide/lagou.jpg" alt="">
+                <div class="caption">
+                    <a href="single.html">爬虫：用request爬取拉勾网广州的所有Python相关的岗位　透视表分析</a>
+                </div>
+            </li>
+            <li>
+                <img src="/static/img/slide/hangzhou.jpg" alt="">
+                <div class="caption">
+                    <a href="single.html">上有天堂　下有苏杭　　游记三:杭州之行：绕过的西湖雷峰塔　尝过的龙井虾仁</a>
+                </div>
+            </li>
+            </ul>
+            </div>
+            </div>
+            <br><br><br>
+            <h4>欢迎大驾我的博客,BUG还很多，欢迎各位大牛大神多多提意见</h4><br>
+            <h4>个人邮箱 353278793@qq.com　<a href="mailto:353278793@qq.com">点我发送</a> </h4>
+            <div class=" b-title-b-hr "></div><br>
+        </div>
+
+        <div class="col-xs-12 col-sm-4" style="padding-right: -90px">
+
+        <div class="first_half">
+        <div class="newsletter">
+            <h1 class="side-title-head">搜大牛博客＆文章</h1>
+            <p class="sign">输入关键字自动匹配,ajax局部刷新，后端requests爬取,xpath解析返回js对象,有点慢,请耐心等待.</p>
+            <p>点击'查询'跳转搜索关键字并跳转到CSDN</p>
+
+            <form action="http://so.csdn.net/so/search/s.do?" method="get">
+                <input type="text"  name="q" value="" autocomplete="off" placeholder="搜索相关博客" id="search">
+                <input type="submit" value="搜索">
+            </form>
+        </div>
+
+        <div class="list_vertical">
+        <section class="accordation_menu">
+        <div>
+        <input id="label-1" name="lida" type="radio" checked="">
+        <label for="label-1" id="item1">
+            <i class="ferme"> </i>预览博客＆文章<i class="icon-plus-sign i-right1"></i>
+            <i class="icon-minus-sign i-right2"></i></label>
+        <div class="content" id="a1">
+        <div class="scrollbar" id="style-2">
+        <div class="force-overflow">
+
+            <div class="popular-post-grids">
+             <div class="popular-post-grid" style="display: none">
+                <div class="post-text">
+                    <a class="pp-title" href=""></a>
+                    </div>
+                <div class=" b-title-b-hr "></div>
+            </div>
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+    </div>
+                                </section>
+    </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock con %}

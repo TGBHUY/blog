@@ -1,0 +1,336 @@
+{% load blog_tags %}
+<!DOCTYPE html>
+<html>
+ <!--head-->
+ <head>
+    <meta charset="utf-8"/>
+    <title>胡星雨的blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+ <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic" rel="stylesheet" type="text/css" />
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="/static/css/bootstrap.min.css" type="text/css" rel="stylesheet"  />
+    <link href="/static/css/main-default.css" type="text/css" data-themecolor="default" rel="stylesheet"  />
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+    <script src="/static/js/jquery/jquery.min.js"></script>
+    <script src="/static/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/modules/color-themes.js"></script>
+    <script src="/static/js/cookie.js"></script>
+     <style>
+    span.highlighted {
+	color: red;
+	}
+     </style>
+
+    {% block head %}
+
+    {% endblock head %}
+
+ </head>
+ <!--head上-->
+
+ <!--body下-->
+ <body>
+
+  <!--底色-->
+  <div class="mask-l" style="background-color: #fff; width: 100%; height: 100%; position: fixed; top: 0; left:0; z-index: 9999999;"></div>
+
+  <!--模块一   顶部的导航栏，需要base继承的-->
+  <header>
+   <div class="container b-header__box b-relative">
+    <div class="b-header-r b-right b-header-r--icon">
+     <div class="b-top-nav-show-slide f-top-nav-show-slide b-right j-top-nav-show-slide">
+      <i class="fa fa-align-justify"></i>
+     </div>
+     <nav class="b-top-nav f-top-nav b-right j-top-nav">
+      <ul class="b-top-nav__1level_wrap">
+       <!--顶部导航栏列表　共五项-->
+      {% if index %}
+        <li class="b-top-nav__1level f-top-nav__1level is-active-top-nav__1level f-primary-b"> <a href="/index/"><i class="fa fa-home b-menu-1level-ico"></i>主页 <span class="b-ico-dropdown"> <i class="fa fa-arrow-circle-down"></i></span></a></li>
+        <li class="b-top-nav__1level f-top-nav__1level  f-primary-b"> <a href="/bloglist_1/"><i class="fa fa-code b-menu-1level-ico"></i>Blog <span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span></a> </li>
+      {% else %}
+        <li class="b-top-nav__1level f-top-nav__1level f-primary-b"> <a href="/index/"><i class="fa fa-home b-menu-1level-ico"></i>主页 <span class="b-ico-dropdown"> <i class="fa fa-arrow-circle-down"></i></span></a></li>
+        <li class="b-top-nav__1level f-top-nav__1level is-active-top-nav__1level f-primary-b"> <a href="/bloglist_1/"><i class="fa fa-code b-menu-1level-ico"></i>Blog <span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span></a> </li>
+      {% endif %}
+       <li class="b-top-nav__1level f-top-nav__1level f-primary-b"> <a href="https://github.com/TGBHUY"><i class="fa fa-picture-o b-menu-1level-ico"></i>Github<span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span></a> </li>
+
+
+       <li class="b-top-nav__1level f-top-nav__1level f-primary-b b-top-nav-big"> <a href="#"><i class="fa fa-cloud-download b-menu-1level-ico"></i>归档<span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span></a> </li>
+       <li class="b-top-nav__1level f-top-nav__1level f-primary-b"> <a href="#bottom"><i class="fa fa-folder-open b-menu-1level-ico"></i>联系我<span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span></a> </li>
+      </ul>
+     </nav>
+    </div>
+   </div>
+  </header>
+  <!--整个顶部的导航栏end-->
+
+  <!--模块二　　下面大标题-->
+  <div class="j-menu-container"></div>
+  <div class="b-inner-page-header f-inner-page-header b-bg-header-inner-page">
+   <div class="b-inner-page-header__content">
+    <div class="container">
+     <h2 class=" c-34" >生活不止眼前的苟且　还有诗和远方</h2><br><br><br><br><br><br><h6>的姑娘</h6>
+    </div>
+   </div>
+  </div>
+
+  <!--模块三　　整个内容模块-->
+
+<div class="l-main-container">
+   <div class="b-breadcrumbs f-breadcrumbs">
+    <div class="container">
+     <ul>
+        {% if index %}
+          <li><a href="/index/"><i class="fa fa-home"></i>首页</a></li>
+        {% else %}
+          <li><a href="/index/"><i class="fa fa-home"></i>首页</a></li>
+          <li><i class="fa fa-angle-right"></i><a href="/bloglist_1/">博客</a></li>
+        {% endif %}
+
+{#      <li><i class="fa fa-angle-right"></i><span>左侧列表栏</span></li>#}
+     </ul>
+    </div>
+   </div>
+   <!--除开导航栏的所有内容了-->
+   {% block con %}
+   <div class="l-inner-page-container" >
+
+    <div class="container" >
+
+     <div class="row" >
+      <div class="col-md-9 col-md-push-3">
+
+        {% block blog_content %}
+        <!--继承模板放里面-->
+        {% endblock blog_content %}
+
+      </div>
+      <div class="visible-xs-block visible-sm-block b-hr"></div>
+
+        {% block blog_left %}
+            <!--继承模板放里面-->
+
+           <!--左侧所有导航-->
+           <div class="col-md-3 col-md-pull-9">
+
+            <!--左侧导航　查找搜索框-->
+            <div class="row">
+             <div class="col-md-12">
+              <div class="b-form-row b-input-search">
+              <form method='get' action="/search/" target="_blank">
+               <input class="form-control" type="text"  name="q" placeholder="请输入要搜索的内容" />
+{#               <span class="b-btn b-btn-search f-btn-search fa fa-search fa-2x"></span>#}
+                <button type="submit" class="b-btn b-btn-search f-btn-search fa fa-search fa-2x" value="搜" ></button>
+                </form>
+              </div>
+             </div>
+            </div>
+
+            <div class="row b-col-default-indent">
+
+             <!--左侧导航功能一 博客-->
+             <div class="col-md-12">
+              <div class="b-categories-filter">
+               <h4 class="f-primary-b b-h4-special f-h4-special--gray f-h4-special">博客</h4>
+               <ul>
+                {% tags_category_list as category_list %}
+
+                {% for category in category_list %}
+                <li> <a class="f-categories-filter_name" href="#">
+                    <i class="fa fa-plus"></i> {{ category }}</a>
+                    <!--便签　博客　名字-->
+                    <span class="b-categories-filter_count f-categories-filter_count">
+                    {{ category.article_set.all|length}}
+                    <!--便签博客关联总量-->
+                    </span>
+                </li>
+                {% endfor %}
+               </ul>
+              </div>
+             </div>
+             <!--功能一 博客end-->
+
+             <!--左侧导航功能二 最新动态-->
+             <div class="col-md-12">
+              <h4 class="f-primary-b b-h4-special  f-h4-special--gray f-h4-special">最新动态</h4>
+              <div class="b-blog-short-post b-blog-short-post--img-hover-bordered b-blog-short-post--w-img f-blog-short-post--w-img row">
+               <div class="b-blog-short-post b-blog-short-post--img-hover-bordered b-blog-short-post--w-img f-blog-short-post--w-img row">
+
+           {%  tags_hotblog_list as hot_blog %}
+            {% for Article in hot_blog %}
+
+               <div class="b-blog-short-post--popular col-md-12  col-xs-12 f-primary-b">
+                 <div class="b-blog-short-post__item_img">
+                  <a href="/blog_{{ Article.id }}"><img data-retina="" src="/static/img/{{ Article.portrait_img }}" alt="" /></a>
+                 </div>
+                 <div class="b-remaining">
+                  <div class="b-blog-short-post__item_text f-blog-short-post__item_text">
+                   <a href="/blog_{{ Article.id }}">{{ Article.title }}</a>
+                  </div>
+                  <div class="b-blog-short-post__item_date f-blog-short-post__item_date f-primary-it">
+                    阅读量：{{ Article.views}}
+    {#                  <br>点赞：{{ Article.likes}}#}
+                      <br><br>
+                    {{ Article.last_modified_time }}
+                  </div>
+                 </div>
+                </div>
+
+            {% endfor %}
+
+               </div>
+              </div>
+             </div>
+             <!--左侧导航功能二 最新动态end-->
+
+             <!--左侧导航功能三　浮动标签-->
+             <div class="col-md-12">
+              <h4 class="f-primary-b b-h4-special f-h4-special--gray f-h4-special">浮动标签栏</h4>
+              <div>
+               <a class="f-tag b-tag" href="#">Dress</a>
+{#               <a class="f-tag b-tag" href="#">Mini</a>#}
+{#               <a class="f-tag b-tag" href="#">Skate animal</a>#}
+{#               <a class="f-tag b-tag" href="#">Lorem ipsum</a>#}
+{#               <a class="f-tag b-tag" href="#">literature</a>#}
+{#               <a class="f-tag b-tag" href="#">Baroque</a>#}
+{#               <a class="f-tag b-tag" href="#">Dress</a>#}
+{#               <a class="f-tag b-tag" href="#">Mini</a>#}
+{#               <a class="f-tag b-tag" href="#">Skate animal</a>#}
+{#               <a class="f-tag b-tag" href="#">Lorem ipsum</a>#}
+{#               <a class="f-tag b-tag" href="#">literature</a>#}
+{#               <a class="f-tag b-tag" href="#">Baroque</a>#}
+              </div>
+             </div>
+             <!--左侧导航功能三　浮动标签end-->
+
+            </div>
+           </div>
+           <!--左侧所有导航end-->
+
+        {% endblock blog_left %}
+
+
+      </div>
+     </div>
+    </div>
+</div>
+
+  {% endblock con %}
+
+
+   <!--最下底部模块-->
+   <footer>
+    <div class="b-footer-primary">
+     <div class="container">
+      <div class="row">
+       <div class="col-sm-4 col-xs-12 f-copyright b-copyright">
+         个人博客,欢迎交流.
+       </div>
+       <div class="col-sm-8 col-xs-12">
+        <div id="top" class="b-btn f-btn b-btn-default b-right b-footer__btn_up f-footer__btn_up j-footer__btn_up">
+         <i class="fa fa-chevron-up" ></i>
+        </div>
+        <nav class="b-bottom-nav f-bottom-nav b-right hidden-xs">
+         <ul class="bottom_li">
+          <li><a href="/index/">博客主页</a></li>
+          <li><a href="http://weibo.com/2290838103/info">微博</a></li>
+          <li><a href="https://www.zhihu.com/people/hu-xing-yu-91">知乎</a></li>
+          <li><a href="https://github.com/TGBHUY">源码</a></li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!--这里就是底部了end-->
+    <!--底部导航栏，暂时不需要-->
+    <!--<div class="container"> -->
+    <div class="b-footer-secondary row">
+     <div class="col-md-3 col-sm-12 col-xs-12 f-center b-footer-logo-containter">
+      <div class="b-footer-logo-text f-footer-logo-text">
+          <h3>友情链接：</h3>
+          <br><a href="" class=" c-35">窗边的后觉着　blog</a>
+{#          <a href="">窗边的后觉着　blog</a><br>#}
+{#          <a href="">窗边的后觉着　blog</a><br>#}
+        <br><a href="https://www.liaoxuefeng.com/" class=" c-34">廖雪峰python(非常不错的入门教程)</a>
+        <br><a href="http://python.usyiyi.cn/translate/django_182/index.html/" class=" c-32">Django1.8.2中文文档(超级全)</a>
+        <br><a href="https://github.com/TGBHUY" class=" c-33">Github(同X交友网站－Github个人主页,博客源码)</a>
+
+       <div class="b-btn-group-hor f-btn-group-hor">
+       </div>
+      </div>
+     </div>
+     <div class="col-md-3 col-sm-12 col-xs-12">
+      <h4 class="f-primary-b">最近的博客</h4>
+     <br>
+      <div class="b-blog-short-post row">
+      {% tags_gedit_blog as gedit_list %}
+          {% for blog in gedit_list %}
+
+         <div class="b-blog-short-post__item col-md-12 col-sm-4 col-xs-12 f-primary-b">
+        <div class="b-blog-short-post__item_text f-blog-short-post__item_text">
+         <h3><a href="/blog_{{ blog.id }}">{{ blog.title }}</a></h3>
+        </div>
+        <div class="b-blog-short-post__item_date f-blog-short-post__item_date">
+
+            {{ blog.created_time }}
+        </div>
+       </div>
+          {% endfor %}
+
+
+      </div>
+     </div>
+     <div class="col-md-3 col-sm-12 col-xs-12">
+      <h4 class="f-primary-b">联系我</h4>
+      <div class="b-contacts-short-item-group">
+       <div class="b-contacts-short-item col-md-12 col-sm-4 col-xs-12">
+        <div class="b-contacts-short-item__icon f-contacts-short-item__icon f-contacts-short-item__icon_lg b-left">
+         <i class="fa fa-map-marker"></i>
+        </div>
+        <div class="b-remaining f-contacts-short-item__text">
+          地址:
+         <br />　广州市 广东省 中国.
+         <br />　海珠区
+         <br />
+        </div>
+       </div>
+       <div class="b-contacts-short-item col-md-12 col-sm-4 col-xs-12">
+        <div class="b-contacts-short-item__icon f-contacts-short-item__icon b-left f-contacts-short-item__icon_md">
+         <i class="fa fa-skype"></i>
+        </div>
+        <div class="b-remaining f-contacts-short-item__text f-contacts-short-item__text_phone">
+            <a href="http://weibo.com/2290838103/info">微博：只不过一个昵称罢了</a>
+        </div>
+       </div>
+       <div class="b-contacts-short-item col-md-12 col-sm-4 col-xs-12">
+        <div class="b-contacts-short-item__icon f-contacts-short-item__icon b-left f-contacts-short-item__icon_xs">
+         <i class="fa fa-envelope"></i>
+        </div>
+        <div class="b-remaining f-contacts-short-item__text f-contacts-short-item__text_email">
+         <a href="mailto:353278793@qq.com">353278793@qq.com</a>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="col-md-3 col-sm-12 col-xs-12 ">
+      <h4 class="f-primary-b" id="bottom">微博&只不过一个昵称罢了</h4>
+      <div class="b-short-photo-items-group">
+          <img src="/static/img/erweima.png" alt="" style="margin:35px">
+     </div>
+     </div>
+    </div>
+   </div>
+    <!--底部导航栏，暂时不需要end-->
+   </footer>
+  　<!--最下底部模块　end-->
+  </div>
+ </body>
+
+</html>

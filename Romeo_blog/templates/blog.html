@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% load filters %}
+
+    {% block head %}
+        <script>
+            $(function () {
+            var $id = $("#blog_id").attr('value');
+            $('#but').click(function () {
+
+                var nowTime = new Date().getTime();
+                var clickTime = $(this).attr("ctime");
+                if( clickTime != 'undefined' && (nowTime - clickTime < 5000)){
+                    alert('操作过于频繁，稍后再试');
+                    return false;
+                 }else{
+                    $(this).attr("ctime",nowTime);
+                 }
+                var $username = $("#username").val();
+                var $textarea = $("#textarea").val();
+                if( $username == "") {
+                    alert('好汉请留名');
+                    return false;
+                }else if($username.length>7){
+                    alert('名字短一点，不然容易出BUG');
+                    $("#username").val("")
+                    return false;
+                 }else if($textarea == ""){
+                    alert('写点什么吧');
+                    return false;
+                 }else if($textarea.length>139){
+                    alert('大兄弟话挺多的,要不咱加个微信?');
+                    $("#textarea").val("");
+                    return false;
+                 }
+                $.get('/blog_comment/',{"username":$username,"id":$id,"textarea":$textarea},function (data) {
+                $commnet = $(".comments:first").clone();
+                $commnet.children("div").children("div").children("div").html("&nbsp;"+$username);
+                $commnet.children("div").children("div").children("span").html($textarea);
+                $commnet.children("span").html(data["latest_time"]);
+
+                $("#comment_list").prepend("<div class='b-title-b-hr'></div><br>");
+                $("#comment_list").prepend($commnet);
+                $commnet.css("display","none");
+                $commnet.stop(true, true).slideDown()
+                })
+            });
+        });
+
+        </script>
+
+    {% endblock head %}
+
+
+{% block con %}
+
+    {% for blog in blogs %}
+
+    <div style="width:95%;">
+    <div class="row" id="blog_id" value={{ blog.id }}>
+        <br>
+        <div class="col-xs-12 col-sm-1" >
+        </div>
+
+        <div class="col-xs-12 col-sm-10 " style="background-color:#f4f2f2" >
+            <br>
+
+            <div class="row">
+            <div class="col-xs-12 col-sm-2" >
+            </div>
+
+            <div class="col-xs-12 col-sm-8" >
+            <div class=" view " id="view_img">
+            <img data-retina="" src="/static/img/{{ blog.title_img }}" alt="" style="" >
+            </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-2" >
+            </div>
+            </div>
+
+            <div class="b-infoblock-with-icon__info f-infoblock-with-icon__info">
+                <a href="#" class="f-infoblock-with-icon__info_title b-infoblock-with-icon__info_title f-primary-l b-title-b-hr f-title-b-hr">
+                    {{ blog.title }}
+                </a>
+
+{#                    <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text c-primary b-blog-listing__text">#}
+{#                        {{ blog.abstract }}#}
+{#                    </div>#}
+
+                <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text c-primary b-blog-listing__text">
+                    {{ blog.body }}
+                </div>
+
+
+                <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text f-primary-b b-blog-listing__pretitle">
+                    By <a href="#" class="f-more">胡星雨
+                </a> In <a href="#" class="f-more">{{ blog.category }}</a>
+                    {{ blog.created_time }}
+                    <a href="#comment" class="f-more b-blog-listing__additional-text f-primary">
+                        <i class="fa fa-comment"></i>{{ blog.id|com_sum }}次评论</a>
+                </div>
+
+
+{#                    <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text">#}
+{#                        <a href="blog/{{ blog.id }}" class="f-more f-primary-b">阅读更多</a>#}
+{#                    </div>#}
+            </div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-1" >
+        </div>
+
+    </div>
+
+        <div class="row">
+
+        <div class="col-xs-12 col-sm-1" >
+        </div>
+
+        <div class="col-xs-12 col-sm-10" >
+            <br><br>
+            <h4 id="comment">吐槽的地方</h4>
+
+            <div class=" b-title-b-hr ">参与评论</div><br>
+
+        <!--  表单  -->
+            <form role="form" class="form-group" >
+
+            <textarea class="form-control" rows="5" id="textarea" placeholder="欢迎您的评价^_^"></textarea><br>
+
+            <h4 class=" pull-right" >评论昵称</h4><br><br>
+
+            <input type="text" class="form-control  pull-right" id="username" style="width:15%" placeholder="来个酷炫的昵称">
+
+            <br><br><br>
+            <div type="submit" class="btn btn-default pull-right" id="but">提交</div>
+            </form>
+
+            <div class=" b-title-b-hr ">评论 共{{ comment_len }}条</div><br>
+
+            <div id="comment_list">
+
+                {% for comment in comments %}
+
+                    <div style="margin:5px;height:40px;display:block" class="comments">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-2" >
+                            <img src="/static/img/python_logo.jpg" alt="头像" style="margin-left:10px">
+                            <div class="center-block" style="margin-top: 10px">{{ comment.name }}</div>
+
+                        </div>
+
+                        <div class="col-xs-12 col-sm-10" style="margin-left:-50px">
+                            <span>{{ comment.comment_con }}</span><br>
+                        </div>
+
+                    </div>
+                    <span class="b-right">{{ comment.created_time }}</span>
+                </div>
+                    <div class=" b-title-b-hr "></div><br>
+
+                {% endfor %}
+
+                <div style="margin:5px;height:40px;display:none" class="comments">
+
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-2" >
+                        <img src="/static/img/python_logo.jpg" alt="">
+                        <div></div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-10" style="margin-left:-50px">
+                        <span></span><br>
+                    </div>
+
+                </div>
+                <span class="b-right"></span>
+            </div>
+                <div class=" b-title-b-hr " style=:"display","none"></div><br>
+
+            </div>
+
+        </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+{% endblock con %}
+

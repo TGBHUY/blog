@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load filters %}
+
+{% block con %}
+
+    {{block.super}}
+
+{% endblock con %}
+
+{% block blog_content %}
+
+    <!--博客内容　循环-->
+    {% for blog in page_blog %}
+    <!--博客内容列表，用循序展示1-->
+    <div class="b-blog-listing__block">
+
+        <div class="b-blog-listing__block-top">
+            <div class=" view view-sixth">
+            <img data-retina="" src="/static/img/{{ blog.title_img }}" alt="">
+            </div>
+        </div>
+
+        <div class="b-infoblock-with-icon b-blog-listing__infoblock">
+            <a href="/blog_{{ blog.id }}" class="b-infoblock-with-icon__icon f-infoblock-with-icon__icon fade-in-animate hidden-xs">
+                <i class="fa fa-pencil"></i>
+            </a>
+            <div class="b-infoblock-with-icon__info f-infoblock-with-icon__info">
+                <a href="/blog_{{ blog.id }}" class="f-infoblock-with-icon__info_title b-infoblock-with-icon__info_title f-primary-l b-title-b-hr f-title-b-hr">
+                    {{ blog.title }}
+                </a>
+                <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text f-primary-b b-blog-listing__pretitle">
+                    By <a href="#" class="f-more">胡星雨
+                </a> In <a href="/blog_{{ blog.id }}" class="f-more">{{ blog.category }}</a>
+                    {{ blog.created_time }}
+                    <a href="/blog_{{ blog.id }}#comment " class="f-more b-blog-listing__additional-text f-primary">
+                        <i class="fa fa-comment"></i>{{ blog.id|com_sum }}次评论</a>
+                </div>
+                <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text c-primary b-blog-listing__text">
+                    {{ blog.abstract }}
+                </div>
+                <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text">
+                    <a href="/blog_{{ blog.id }}" class="f-more f-primary-b">阅读更多</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--博客内容列表，用循序展示end1-->
+    {% endfor %}
+
+    <!--下标页码栏-->
+    <div class="b-pagination f-pagination">
+        <ul>
+            <li><a href="/bloglist_1">First</a></li>
+            {%if page_blog.has_previous%}
+                <li><a class="prev" href="/bloglist_{{page_blog.previous_page_number}}"><i class="fa fa-angle-left"></i></a></li>
+            {% else %}
+            {%endif%}
+
+
+            {%for index in paginator.page_range%}
+                {%if index == page_blog.number%}
+                    <li class="is-active-pagination"><a href="/bloglist_{{index}}/">{{index}}</a></li>
+                {%else%}
+                    <li><a href="/bloglist_{{index}}/">{{index}}</a></li>
+                {%endif%}
+            {%endfor%}
+
+{#            <li><a class="next" href="/bloglist/{{page_blog.next_page_number}}"><i class="fa fa-angle-right"></i></a></li>#}
+
+            {%if page_blog.has_next%}
+                <li><a class="next" href="/bloglist_{{page_blog.next_page_number}}"><i class="fa fa-angle-right"></i></a></li>
+            {%endif%}
+
+            <li><a href="/bloglist_{{paginator.num_pages}}">Last</a></li>
+
+
+
+        </ul>
+    </div>
+
+{% endblock blog_content %}

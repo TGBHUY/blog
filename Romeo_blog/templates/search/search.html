@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load filters %}
+{% load highlight %}
+
+{% block con %}
+
+    {{block.super}}
+
+{% endblock con %}
+
+{% block blog_content %}
+
+    <!--博客内容　循环-->
+
+    {% if  page.object_list %}
+    <h3 style="text-align: center">共计-{{ paginator.count }}条-符合条件的搜索结果</h3>
+    {% for blog in page.object_list %}
+    <!--博客内容列表，用循序展示1-->
+        <div class="b-blog-listing__block">
+
+        <br>
+
+        <div class="b-infoblock-with-icon b-blog-listing__infoblock">
+            <a href="/blog_{{ blog.object.id }}" class="b-infoblock-with-icon__icon f-infoblock-with-icon__icon fade-in-animate hidden-xs">
+                <i class="fa fa-pencil"></i>
+            </a>
+            <div class="b-infoblock-with-icon__info f-infoblock-with-icon__info">
+                <a href="/blog_{{ blog.object.id }}" class="f-infoblock-with-icon__info_title b-infoblock-with-icon__info_title f-primary-l b-title-b-hr f-title-b-hr">
+                    {% highlight blog.object.title with query %}
+                </a>
+                <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text f-primary-b b-blog-listing__pretitle">
+                    By <a href="#" class="f-more">胡星雨
+                </a> In <a href="#" class="f-more">{{ blog.object.category }}</a>
+                    {{ blog.object.created_time }}
+                    <a href="/blog_{{ blog.object.id }}#comment " class="f-more b-blog-listing__additional-text f-primary">
+                        <i class="fa fa-comment"></i>{{ blog.object.id|com_sum }}次评论</a>
+                </div>
+                <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text c-primary b-blog-listing__text">
+
+                    {% highlight blog.object.body with query max_length 80 %}
+                </div>
+                <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text">
+                    <a href="/blog_{{ blog.object.id }}" class="f-more f-primary-b">阅读更多</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--博客内容列表，用循序展示end1-->
+    {% endfor %}
+
+    <!--下标页码栏-->
+    <div class="b-pagination f-pagination">
+        <ul>
+
+            <li><a href="?q={{ query }}&amp;page={{ 1 }}">First</a></li>
+            {%if page.has_previous%}
+                <li><a class="prev" href="?q={{ query }}&amp;page={{ page.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+            {%endif%}
+
+
+            {%for index in paginator.page_range%}
+                {%if index == page.number%}
+                    <li class="is-active-pagination"><a href="#">{{index}}</a></li>
+                {%else%}
+                    <li><a href="?q={{ query }}&amp;page={{ index }}">{{index}}</a></li>
+                {%endif%}
+            {%endfor%}
+
+{#            <li><a class="next" href="/bloglist/{{page_blog.next_page_number}}"><i class="fa fa-angle-right"></i></a></li>#}
+
+            {%if page.has_next%}
+                <li><a class="next" href="?q={{ query }}&amp;page={{ page.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+            {%endif%}
+            <li><a href="?q={{ query }}&amp;page={{ paginator.num_pages }}">Last</a></li>
+
+
+
+
+        </ul>
+    </div>
+    {%else%}
+
+    <br>
+     <div style="font-size: 30px">很抱歉，没有找到关键字 {% highlight query with query %} 相关的内容，请换其他关键字</div>
+        <h2 >例如 python.</h2>
+
+    {% endif %}
+
+{% endblock blog_content %}
